@@ -1,0 +1,39 @@
+name = "dev-onboarding-api"
+main = "workers/api/index.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[env.production]
+name = "dev-onboarding-api"
+
+[env.staging]
+name = "dev-onboarding-api-staging"
+
+[[kv_namespaces]]
+binding = "ONBOARDING_KV"
+id = "your-kv-namespace-id"
+preview_id = "your-preview-kv-namespace-id"
+
+[[kv_namespaces]]
+binding = "SECRETS_KV"
+id = "your-secrets-kv-namespace-id"
+preview_id = "your-preview-secrets-kv-namespace-id"
+
+[[durable_objects.bindings]]
+name = "PLAYBOOK_STATE"
+class_name = "PlaybookState"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["PlaybookState"]
+
+[vars]
+ENVIRONMENT = "development"
+JWT_SECRET = "your-jwt-secret-here"
+GITHUB_CLIENT_ID = "your-github-client-id"
+
+[secrets]
+# Set these with: wrangler secret put SECRET_NAME
+# GITHUB_CLIENT_SECRET
+# ENCRYPTION_KEY
+# WEBHOOK_SECRET
